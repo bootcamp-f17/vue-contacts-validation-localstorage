@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Vue Contact List</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Caveat:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="container">
+
+  <div id="contactApp" v-cloak>
+
+    <h1>Vue Contact List</h1>
+
+    <form>
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col">
+          <input type="text" class="form-control" v-model="newName" placeholder="Harry Potter">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+        <div class="col">
+          <input type="tel" class="form-control" v-model="newPhone" placeholder="859-867-5309">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Email</label>
+        <div class="col">
+          <input type="email" class="form-control" v-model="newEmail" placeholder="hpotter@hogwarts.com">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <button class="btn btn-outline-warning" v-on:click.prevent="addContact()">Save</button>
+        </div>
+      </div>
+    </form>  
+
+    <hr class="divider" />
+
+    <div v-if="contacts && contacts.length > 0">
+      <div class="row" v-for="contact in contactList">
+        <div class="col-sm-1">
+          <button type="button" v-on:click="removeContact(contact.id)" class="btn btn-outline-danger mr-2">X</button>
+        </div>
+        <div class="col-sm-4">{{ contact.name }}</div>
+        <div class="col-sm-3">{{ contact.phone }}</div>
+        <div class="col-sm-4">{{ contact.email }}</div>
+      </div>
+    </div>
+    <div v-else>
+      <div class="row">
+        <div class="col text-center">No contacts!</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>

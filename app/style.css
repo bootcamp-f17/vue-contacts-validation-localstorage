@@ -1,0 +1,49 @@
+/*
+  Salmon: #ff7473
+  Yellow: #ffc952
+  Blue: #47b8e0
+  Ink: #34314c
+*/
+
+[v-cloak] {
+  display: none;
+}
+
+::placeholder {
+  font-family: 'Caveat', cursive;
+  color: #ccc !important;
+}
+
+body {
+  color: #47b8e0;
+  min-width: 600px;
+}
+
+label {
+  color: #47b8e0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Caveat', cursive;
+  text-align: center;
+  color: #ff7473;
+}
+
+h1 {
+  padding-bottom: 10px;
+}
+
+#contactApp {
+  padding-top: 15px;
+  margin: 0px auto;
+}
+
+.divider {
+  border-color: #ff7473;
+  border-width: 2px;
+}
+
+hr {
+  margin: 20px auto;
+  width: 100%;
+}
