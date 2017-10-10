@@ -61,7 +61,7 @@ var contactApp = new Vue({
 
     badPhone: function() {
 
-      var pattern = /^[1-9]\d{2}-\d{3}-\d{4}/;
+      var pattern = /^[1-9]\d{2}-\d{3}-\d{4}$/;
       return !pattern.test(this.newPhone);
 
     },
