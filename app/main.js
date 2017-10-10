@@ -108,7 +108,6 @@ var contactApp = new Vue({
         this.newName = '';
         this.newPhone = '';
         this.newEmail = '';
-        this.nextId++;
         this.attemptingSave = false;
 
         this.saveContacts();
