@@ -17,29 +17,59 @@
     <h1>Vue Contact List</h1>
 
     <form>
-      <div class="form-group row">
+      
+      <div class="form-group row" v-bind:class="{ 'has-warning': missingName && attemptingSave }">
+        
         <label for="name" class="col-sm-2 col-form-label">Name</label>
-        <div class="col">
-          <input type="text" class="form-control" v-model="newName" placeholder="Harry Potter">
+                
+        <div class="col-sm-10">        
+          
+          <input type="text" id="name" class="form-control form-control-warning" v-model="newName" placeholder="Harry Potter">
+          
+          <div class="form-control-feedback" v-if="missingName && attemptingSave">Name cannot be blank.</div>
+
         </div>
+ 
       </div>
-      <div class="form-group row">
+      
+      <div class="form-group row" v-bind:class="{ 'has-warning': badPhone && attemptingSave }">
+        
         <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-        <div class="col">
-          <input type="tel" class="form-control" v-model="newPhone" placeholder="859-867-5309">
+        
+        <div class="col-sm-10">
+          
+          <input type="text" id="phone" class="form-control form-control-warning" v-model="newPhone" placeholder="859-867-5309">
+          
+          <div class="form-control-feedback" v-if="badPhone && attemptingSave">Please enter a phone number in 999-999-9999 format.</div>
+        
         </div>
+      
       </div>
-      <div class="form-group row">
-        <label for="name" class="col-sm-2 col-form-label">Email</label>
-        <div class="col">
-          <input type="email" class="form-control" v-model="newEmail" placeholder="hpotter@hogwarts.com">
+      
+      <div class="form-group row" v-bind:class="{ 'has-warning': badEmail && attemptingSave }">
+        
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        
+        <div class="col-sm-10">
+          
+          <input type="text" id="email" class="form-control form-control-warning" v-model="newEmail" placeholder="hpotter@hogwarts.edu">
+          
+          <div class="form-control-feedback" v-if="badEmail && attemptingSave">Email is missing an '@'.</div>
+        
         </div>
+      
       </div>
+      
       <div class="row">
+        
         <div class="col text-center">
-          <button class="btn btn-outline-warning" v-on:click.prevent="addContact()">Save</button>
+          
+          <button class="btn btn-outline-warning" v-on:click.prevent="validateForm()">Save</button>
+        
         </div>
+      
       </div>
+    
     </form>  
 
     <hr class="divider" />
@@ -47,7 +77,7 @@
     <div v-if="contacts && contacts.length > 0">
       <div class="row" v-for="contact in contactList">
         <div class="col-sm-1">
-          <button type="button" v-on:click="removeContact(contact.id)" class="btn btn-outline-danger mr-2">X</button>
+          <button type="button" v-on:click="removeContact(contact.id)" class="btn btn-sm btn-outline-danger">X</button>
         </div>
         <div class="col-sm-4">{{ contact.name }}</div>
         <div class="col-sm-3">{{ contact.phone }}</div>

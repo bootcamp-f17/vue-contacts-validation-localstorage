@@ -8,9 +8,13 @@ var contactApp = new Vue({
     newPhone: '',
     newEmail: '',
 
+    attemptingSave: false,
+
     contactList: [], // this is used to store data
 
-    nextId: 5,
+    nextId: 0,
+
+    nextIdSeeds: 5,
 
     contactSeeds: [
       {
@@ -47,6 +51,26 @@ var contactApp = new Vue({
 
       return this.contactList.sort(this.alphabetizeContacts);
 
+    },
+
+    missingName: function() {
+
+      return this.newName === '';
+
+    },
+
+    badPhone: function() {
+
+      var pattern = /^[1-9]\d{2}-\d{3}-\d{4}/;
+      return !pattern.test(this.newPhone);
+
+    },
+
+    badEmail: function() {
+
+      var pattern = /@/;
+      return !pattern.test(this.newEmail);
+
     }
 
   },
@@ -59,20 +83,40 @@ var contactApp = new Vue({
 
   methods: {
 
+    validateForm: function(event) {
+
+      this.attemptingSave = true;
+      if (this.missingName || this.badPhone || this.badEmail) {
+        event.preventDefault();
+      }
+      else {
+        this.addContact();
+      }
+
+    },
+
     addContact: function() {
 
-      this.contactList.push({
-        id: this.nextId++,
-        name: this.newName,
-        phone: this.newPhone,
-        email: this.newEmail
-      });
-      this.newName = '';
-      this.newPhone = '';
-      this.newEmail = '';
-      this.nextId++;
+      if (this.newName && this.newPhone && this.newEmail) {
 
-      this.saveContacts();
+        this.contactList.push({
+          id: this.nextId++,
+          name: this.newName,
+          phone: this.newPhone,
+          email: this.newEmail
+        });
+        this.newName = '';
+        this.newPhone = '';
+        this.newEmail = '';
+        this.nextId++;
+        this.attemptingSave = false;
+
+        this.saveContacts();
+
+      }
+      else {
+        // nothing
+      }
 
     },
     
@@ -95,21 +139,19 @@ var contactApp = new Vue({
 
     loadContacts: function() {
 
+      this.nextId = localStorage.getItem('nextId');
       this.contactList = JSON.parse(localStorage.getItem('contactList'));
-      if (this.contactList) {
-        this.nextId = this.contactList.length + 1;
-      }
-      else {
+      if (!this.contactList) {
         this.contactList = this.contactSeeds;
-        this.nextId = this.contactList.length + 1;
+        this.nextId = this.nextIdSeeds;
       }
 
     },
 
     saveContacts: function() {
 
-      console.log("Saving contacts...");
       localStorage.setItem('contactList', JSON.stringify(this.contactList));
+      localStorage.setItem('nextId', this.nextId);
 
     },
 
